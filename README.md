@@ -10,11 +10,13 @@ Create a virtual environment and download the required libraries:
 
     source .venv/bin/activate
 
-    pip install 'strands-agents[openai]' strands-agents-tools
+    pip install -r my_agent/requirements.txt
 
 
 Set API key as environment variable:
 
-    Create a file called .env in the my_agent directory
+Create a file called .env in the my_agent directory
 
-    In the file, insert the following: API_KEY=<your api key>
+In the file, insert the following: 
+
+    API_KEY=<your api key>
