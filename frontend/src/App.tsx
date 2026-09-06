@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
 
-import OnboardingPage from "./pages/OnboardingPage";
-import ProcessingPage from "./pages/ProcessingPage";
-import ResultsPage from "./pages/ResultsPage";
-import LandingPage from "./pages/LandingPage";
+import OnboardingPage from "./pages/Onboarding/OnboardingPage";
+import ProcessingPage from "./pages/Processing/ProcessingPage";
+import ResultsPage from "./pages/Result/ResultsPage";
+import LandingPage from "./pages/Landing/LandingPage";
 
 function App() {
   const [scrolled, setScrolled] = useState(false);

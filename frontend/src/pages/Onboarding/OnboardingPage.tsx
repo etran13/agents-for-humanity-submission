@@ -1,23 +1,35 @@
+import { useNavigate } from "react-router-dom";
 import "./OnboardingPage.css";
 
 function OnboardingPage() {
+  const navigate = useNavigate();
+
   return (
     <main className="onboarding-page">
       <section className="onboarding-card">
         <header className="onboarding-header">
           <p className="eyebrow">NONPROFIT ONBOARDING</p>
+
           <h1>Tell us about your organization</h1>
+
           <p>
             Provide some basic information so we can find the best
             opportunities and resources for your nonprofit.
           </p>
         </header>
 
-        <form className="onboarding-form">
+        <form
+          className="onboarding-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            navigate("/processing");
+          }}
+        >
           <div className="form-group">
             <label htmlFor="organizationName">
               Organization Name
             </label>
+
             <input
               id="organizationName"
               name="organizationName"
@@ -28,6 +40,7 @@ function OnboardingPage() {
 
           <div className="form-group">
             <label htmlFor="website">Website</label>
+
             <input
               id="website"
               name="website"
@@ -38,6 +51,7 @@ function OnboardingPage() {
 
           <div className="form-group">
             <label htmlFor="email">Email</label>
+
             <input
               id="email"
               name="email"
@@ -50,6 +64,7 @@ function OnboardingPage() {
             <label htmlFor="description">
               About Your Organization
             </label>
+
             <textarea
               id="description"
               name="description"
@@ -70,8 +85,12 @@ function OnboardingPage() {
                 type="file"
                 multiple
               />
+
               <p>Choose documents to upload</p>
-              <span>PDF, DOC, DOCX, or other supporting files</span>
+
+              <span>
+                PDF, DOC, DOCX, or other supporting files
+              </span>
             </div>
           </div>
 
