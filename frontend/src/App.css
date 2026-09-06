@@ -1,0 +1,320 @@
+/* ================================
+   Global App Layout
+   ================================ */
+
+.app {
+  --background: #f2f2f0;
+  --navbar-background: rgba(255, 255, 255, 0.92);
+  --navbar-scrolled-background: rgba(255, 255, 255, 0.78);
+  --border: rgba(214, 214, 210, 0.7);
+  --text-primary: #242424;
+  --text-secondary: #555555;
+  --shadow: rgba(0, 0, 0, 0.06);
+
+  min-height: 100vh;
+  width: 100%;
+  background: var(--background);
+  color: var(--text-primary);
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+
+/* ================================
+   Dark Mode
+   ================================ */
+
+.app.dark-mode {
+  --background: #181918;
+  --navbar-background: rgba(24, 25, 24, 0.92);
+  --navbar-scrolled-background: rgba(24, 25, 24, 0.82);
+  --border: rgba(70, 72, 69, 0.7);
+  --text-primary: #f2f2f0;
+  --text-secondary: #b5b7b3;
+  --shadow: rgba(0, 0, 0, 0.25);
+
+  --card-background: #242624;
+  --card-border: #3a3d3a;
+  --button-background: #f2f2f0;
+  --button-text: #181918;
+  --button-hover: #d0d1cd;
+}
+
+
+/* ================================
+   Navigation Bar
+   ================================ */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 64px;
+  padding: 0 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--navbar-background);
+  border-bottom: 1px solid var(--border);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-sizing: border-box;
+
+  transition:
+    height 0.25s ease,
+    padding 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* ================================
+   Navbar After Scrolling
+   ================================ */
+
+.navbar-scrolled {
+  height: 50px;
+  padding: 0 32px;
+  background: var(--navbar-scrolled-background);
+  box-shadow: 0 2px 12px var(--shadow);
+}
+
+
+/* ================================
+   Navbar Brand
+   ================================ */
+
+.navbar-brand {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    font-size 0.25s ease,
+    color 0.25s ease;
+}
+
+.navbar-scrolled .navbar-brand {
+  font-size: 1rem;
+}
+
+
+/* ================================
+   Navigation Links
+   ================================ */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navbar-links a {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    font-size 0.25s ease;
+}
+
+.navbar-links a:hover {
+  color: var(--text-primary);
+}
+
+.navbar-scrolled .navbar-links a {
+  font-size: 0.88rem;
+}
+
+
+/* ================================
+   Theme Toggle
+   ================================ */
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+  color: var(--text-primary);
+
+  font-size: 1.2rem;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(128, 128, 128, 0.12);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+
+/* ================================
+   Main Content
+   ================================ */
+
+.app-content {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 64px;
+  box-sizing: border-box;
+}
+
+
+/* ================================
+   Mobile Menu Button
+   ================================ */
+
+.menu-button {
+  display: none;
+
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.menu-button span {
+  display: block;
+
+  width: 22px;
+  height: 2px;
+
+  background: var(--text-primary);
+  border-radius: 2px;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    background 0.25s ease;
+}
+
+
+/* ================================
+   Mobile Layout
+   ================================ */
+
+@media (max-width: 600px) {
+
+  .navbar {
+    height: 56px;
+    padding: 0 16px;
+  }
+
+  .navbar-scrolled {
+    height: 48px;
+    padding: 0 16px;
+  }
+
+
+  /* Hamburger */
+
+  .menu-button {
+    display: flex;
+  }
+
+
+  /* Brand */
+
+  .navbar-brand {
+    margin-right: auto;
+    margin-left: 8px;
+  }
+
+
+  /* Mobile Links */
+
+  .navbar-links {
+    position: absolute;
+
+    top: 56px;
+    left: 0;
+
+    width: 100%;
+
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 8px 16px 16px;
+
+    background: var(--navbar-background);
+    border-bottom: 1px solid var(--border);
+
+    box-sizing: border-box;
+  }
+
+  .navbar-links.menu-open {
+    display: flex;
+  }
+
+  .navbar-links a {
+    padding: 14px 8px;
+    font-size: 0.95rem;
+  }
+
+
+  /* Mobile menu position after scrolling */
+
+  .navbar-scrolled .navbar-links {
+    top: 48px;
+  }
+
+  .navbar-scrolled .navbar-links a {
+    font-size: 0.88rem;
+  }
+
+
+  /* Content spacing */
+
+  .app-content {
+    padding-top: 56px;
+  }
+
+
+  /* Theme toggle */
+
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+}
