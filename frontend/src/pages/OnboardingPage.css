@@ -2,10 +2,8 @@
   min-height: calc(100vh - 64px);
   width: 100%;
   background: var(--background);
-
   display: flex;
   justify-content: center;
-
   box-sizing: border-box;
   padding: 40px;
 
@@ -15,11 +13,9 @@
 .onboarding-card {
   width: 100%;
   max-width: 1100px;
-
-  background: var(--card-background);
+  background: var(--surface);
   border: 1px solid var(--card-border);
   border-radius: 12px;
-
   padding: 64px 80px;
   box-sizing: border-box;
 
@@ -31,20 +27,15 @@
 .continue-button {
   width: 120px;
   height: 40px;
-
   padding: 0;
   margin-top: 8px;
-
   border: none;
   border-radius: 6px;
-
   background: var(--button-background);
   color: var(--button-text);
-
   font: inherit;
   font-size: 0.9rem;
   font-weight: 600;
-
   cursor: pointer;
 
   transition:
