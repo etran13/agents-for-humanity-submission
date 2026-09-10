@@ -1,0 +1,109 @@
+.tag-select {
+  position: relative;
+  width: 100%;
+}
+
+.tag-select-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 42px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.tag-select-input:focus-within {
+  border-color: var(--button-background);
+}
+
+.tag-select-input input {
+  flex: 1;
+  min-width: 120px;
+  padding: 6px 4px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.tag-select-input input::placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 5px 8px;
+  border-radius: 4px;
+
+  background: var(--button-background);
+  color: var(--button-text);
+
+  font-size: 0.9rem;
+}
+
+.tag button {
+  padding: 0;
+  border: none;
+
+  background: transparent;
+  color: inherit;
+
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tag-select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  max-height: 200px;
+  overflow-y: auto;
+
+  margin-top: 4px;
+
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tag-select-options button {
+  display: block;
+  width: 100%;
+
+  padding: 10px 12px;
+  border: none;
+
+  background: transparent;
+  color: inherit;
+
+  text-align: left;
+  font: inherit;
+
+  cursor: pointer;
+}
+
+.tag-select-options button:hover {
+  background: var(--background);
+}
