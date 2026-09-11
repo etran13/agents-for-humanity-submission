@@ -1,4 +1,3 @@
-# Run this file to verify that the Strands Agent SDK is working.
 
 # Imports
 from dotenv import load_dotenv
@@ -6,11 +5,20 @@ import os
 
 from strands import Agent, tool
 from strands.models.openai import OpenAIModel
-from strands_tools import calculator
+from pydantic import BaseModel
+
+from backend.app.schemas.nonprofits import NonprofitCreate
+class GrantWithMatchingInfo(BaseModel):
+    pass
 
 #Load the .env file with the API key.
-load_dotenv()
-api_key = os.getenv("API_KEY")
+
+#load_dotenv() 
+
+#USE WHEN RUNNING W/ python -m my_agent.agent:
+load_dotenv("my_agent/.env") 
+
+api_key = os.getenv("OPENAI_API_KEY")
 
 #Define the model (needed to connect to OpenAI API)
 model = OpenAIModel(
@@ -25,15 +33,24 @@ model = OpenAIModel(
     }
 )
 
+#Define prompts.
+#TODO: How will the agent access the nonprofit create object of an organization?
+BASIC_WORKFLOW_PROMPT = """You are an agent with HTTP capabilities that helps an
+organization find grant opportunities. You can:
+
+1. Access the organization's data, stored in a NonprofitCreate object
+2. Make HTTP requests to the grants.gov API
+3. Filter and rank the results based on how well they fit the organization
+
+When returning responses:
+1. """
+
 #Define tools that the agent can use.
 #The docstring lets the agent know what the tool does. 
 @tool
-def word_count(text: str) -> int:
-    """Given word, return letter count
+def get_list_of_possible_grants_from_grantsgov(org_profile: NonprofitCreate):
+    "Derive list"
+    pass
 
-    """
-    return len(text.split())
-
-print("Agent starting...")
-agent = Agent(model=model, tools=[word_count])
-response = agent("How many letters in 'strawberry'?")
+agent = Agent(model=model, tools=[])
+response = agent("Retrieve and rank grants that match this organization: ")

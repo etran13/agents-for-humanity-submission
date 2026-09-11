@@ -1,6 +1,6 @@
 from datetime import date
 from pydantic import BaseModel, EmailStr, HttpUrl
-from app.schemas.enums import (
+from backend.app.schemas.enums import (
     FundingInstrumentType,
     OrganizationSize,
     OrganizationType,
