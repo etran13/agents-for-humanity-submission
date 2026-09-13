@@ -31,9 +31,13 @@ class GrantRankerAgent:
 
     def run(self, nonprofit_data):
         "Given a dict with nonprofit data, return a dict containing info about the top ___ grants."
-        
+
         response = self.agent("Retrieve and rank grants that match this organization: ")
         return response
+
+    def run_iterative(self, nonprofit_data):
+        "Alternative version of run (Pick definitive version later)"
+        #Have agent look at grants and g
 
 if (__name__ == "__main__"):
     print("IT WORKS")
