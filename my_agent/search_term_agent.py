@@ -1,5 +1,6 @@
 from strands import Agent, tool
 from strands.models.openai import OpenAIModel
+import json
 
 #For testing
 from dotenv import load_dotenv
@@ -40,17 +41,25 @@ class SearchTermAgent:
         self.agent = Agent(model=model, 
                            system_prompt = self.AGENT_PROMPT)
 
-    def expand_search_terms(self, mission_statement, focus_area_list):
+    def expand_search_terms(self, mission_statement: str, focus_area_list: list[str]) -> list[str]:
+        """Given an org's mission statement and focus areas for context, expand the focus areas into
+        a list of 8 search terms."""
+
+        #Model generates a list
         response = self.agent(f"Expand search terms for this nonprofit profile:"\
                          f"Mission statement: {mission_statement} Focus areas: {focus_area_list}")
-        return response
 
+        #Convert response returned by model into list
+        message_string = response.message["content"][0]["text"].rstrip("\n")
+        data = json.loads(message_string) 
+        return data["search_terms"]
 
 if __name__ == "__main__":
     load_dotenv("my_agent/.env") 
     api_key = os.getenv("OPENAI_API_KEY")   
     a = SearchTermAgent(api_key)
-    res = a.expand_search_terms("Empowering formerly incarcerated individuals to rebuild their lives through job training, housing assistance, and community mentorship",
+    res = a.expand_search_terms("Empowering formerly incarcerated individuals to rebuild their lives" \
+    " through job training, housing assistance, and community mentorship",
                           ["reentry support", "workforce development", "housing stability"])
     print(res)
 
