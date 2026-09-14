@@ -5,9 +5,13 @@ import { useState } from "react";
 import TagSelect from "../../components/TagSelect/TagSelect";
 import { focusAreas } from "../../data/focusAreas";
 
+const API_BASE_URL =
+  "https://fu-51deb0088fa2492ebff88cb92746f8a5.ecs.us-east-2.on.aws";
+
 function OnboardingPage() {
   const navigate = useNavigate();
   const [selectedFocusAreas, setSelectedFocusAreas] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   return (
     <main className="onboarding-page">
@@ -25,9 +29,60 @@ function OnboardingPage() {
 
         <form
           className="onboarding-form"
-          onSubmit={(event) => {
+          onSubmit={async (event) => {
             event.preventDefault();
-            navigate("/processing");
+
+            const form = event.currentTarget;
+            const formData = new FormData(form);
+
+            const payload = {
+              organization_name: formData.get("organizationName"),
+              organization_type: formData.getAll("organizationType"),
+              website: formData.get("website"),
+              email: formData.get("email"),
+              description: formData.get("description"),
+              city: formData.get("city"),
+              state: formData.get("state"),
+              funding_instrument_type: formData.getAll("fundingInstrumentType"),
+              focus_area: selectedFocusAreas,
+              population_served: formData.get("populationServed"),
+              funding_need: formData.get("fundingNeed"),
+              organization_size: formData.get("organizationSize"),
+              geographic_service_area: formData.get("geographicServiceArea"),
+              project_budget: Number(formData.get("projectBudget")),
+              project_start_date: formData.get("projectStartDate"),
+              project_end_date: formData.get("projectEndDate"),
+            };
+
+            try {
+              setIsSubmitting(true);
+
+              const response = await fetch(
+                "https://fu-51deb0088fa2492ebff88cb92746f8a5.ecs.us-east-2.on.aws/api/nonprofits",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(payload),
+                }
+              );
+
+              if (!response.ok) {
+                throw new Error(`Request failed: ${response.status}`);
+              }
+
+              const result = await response.json();
+
+              console.log("Nonprofit created:", result);
+
+              navigate("/processing");
+            } catch (error) {
+              console.error("Failed to submit nonprofit:", error);
+              alert("Something went wrong while submitting your organization.");
+            } finally {
+              setIsSubmitting(false);
+            }
           }}
         >
           <div className="form-group">
@@ -221,6 +276,71 @@ function OnboardingPage() {
           </div>
 
           <div className="form-group">
+            <label htmlFor="fundingNeed">
+              Funding Need
+            </label>
+
+            <textarea
+              id="fundingNeed"
+              name="fundingNeed"
+              rows={4}
+              placeholder="What funding does your organization need?"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="geographicServiceArea">
+              Geographic Service Area
+            </label>
+
+            <input
+              id="geographicServiceArea"
+              name="geographicServiceArea"
+              type="text"
+              placeholder="e.g. Chicago, Illinois"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="projectBudget">
+              Project Budget
+            </label>
+
+            <input
+              id="projectBudget"
+              name="projectBudget"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="Enter project budget"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="projectStartDate">
+              Project Start Date
+            </label>
+
+            <input
+              id="projectStartDate"
+              name="projectStartDate"
+              type="date"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="projectEndDate">
+              Project End Date
+            </label>
+
+            <input
+              id="projectEndDate"
+              name="projectEndDate"
+              type="date"
+            />
+          </div>
+
+          <div className="form-group">
             <label htmlFor="documents">
               Supporting Documents
             </label>
@@ -241,8 +361,12 @@ function OnboardingPage() {
             </div>
           </div>
 
-          <button type="submit" className="continue-button">
-            Submit
+          <button
+            type="submit"
+            className="continue-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </form>
       </section>
